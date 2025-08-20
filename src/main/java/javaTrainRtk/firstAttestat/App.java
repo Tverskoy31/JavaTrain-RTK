@@ -50,7 +50,7 @@ public class App {
             }
 
             // Ввод продуктов
-            System.out.println("Введите продукты (обычные или скидочные):");
+            System.out.println("Введите продукты (обычные 'Название = 1000' или скидочные 'Название = 1000, срок = 10, до = 2025-12-31'");
             String[] productInput = sc.nextLine().split(";");
             Map<String, Product> products = new HashMap<>();
             for (String raw : productInput) {
@@ -92,7 +92,7 @@ public class App {
     }
 
     private static Product parseProduct(String raw) {
-        // "Название = 1000"  или  "Название = 1000, discount=10, until=2025-12-31"
+        // "Название = 1000"  или  "Название = 1000, срок = 10, до = 2025-12-31"
         String[] leftRight = raw.split("=");
         String name = leftRight[0].trim();
         String right = raw.substring(raw.indexOf('=') + 1).trim();
@@ -109,9 +109,9 @@ public class App {
             String key = kv[0].trim().toLowerCase();
             String val = kv[1].trim();
 
-            if (key.equals("discount")) {
+            if (key.equals("скидка")) {
                 discount = Integer.parseInt(val.replace("%", ""));
-            } else if (key.equals("until")) {
+            } else if (key.equals("до")) {
                 until = LocalDate.parse(val);
             }
         }
